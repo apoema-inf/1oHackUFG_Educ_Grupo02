@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title text-center>
-      Pontuação
+      Minha Pontuação
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,7 +14,7 @@
         Minha Trajetória
       </ion-card-title>
     </ion-card-header>
-    <ion-img src="/assets/shapes.svg"></ion-img>
+    <ion-img src="/assets/rank.jpg"></ion-img>
     <ion-card-content>
 
       <ion-row>
@@ -43,7 +43,7 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title text-center>
-        Resgate
+        Meus Resgates
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -54,7 +54,7 @@
         </ion-item>
 
         <ion-item *ngIf="recompensasGanhas.length === 0">
-          <ion-label>Infelizmente você não tem nada para resgatar! 😐</ion-label>
+          <ion-label>Infelizmente não tenho nada para resgatar! 😐</ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -63,7 +63,7 @@
   <ion-card *ngIf="resgatados.length !== 0">
       <ion-card-header>
         <ion-card-title text-center>
-          Itens Resgatados
+          Meus Itens Resgatados
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
@@ -71,7 +71,7 @@
           <ion-item *ngFor="let item of resgatados; let index = index">
             <ion-label>{{ item.nome }}
               <p class="text-hours">
-                Resgatado em {{ calculaTempoResgate(index) }}
+                Resgatei em {{ calculaTempoResgate(index) }}
               </p>
             </ion-label>
           </ion-item>
