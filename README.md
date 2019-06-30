@@ -7,4 +7,4 @@ Participantes:
 Grazielly Vieira - Lider
 Juliana Carvalho de Oliveira Melo - Design
 Fernando Junior - Programador
-Antonio Tavares Pereira - Programador
+Antonio Tavares Pereira - Programador   
