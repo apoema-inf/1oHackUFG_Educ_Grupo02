@@ -1,16 +1,110 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Two
+  <ion-toolbar color="primary">
+    <ion-title text-center>
+      Pontuação
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title text-center>
+        Minha Trajetória
+      </ion-card-title>
+    </ion-card-header>
+    <ion-img src="/assets/shapes.svg"></ion-img>
+    <ion-card-content>
+
+      <ion-row>
+        <ion-col>
+          <ion-range mode="ios" color="danger" pin="true" [min]="min" [max]="max" [disabled]="true" [value]="usuario.qtdPontos">
+            <ion-icon size="small" slot="start" name="person"></ion-icon>
+            <ion-icon slot="end" name="gift"></ion-icon>
+          </ion-range>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          {{ minDescricao }}
+          <p>{{ min }} pontos</p>
+        </ion-col>
+        <ion-col class="ion-text-center">Meus Pontos: {{ usuario.qtdPontos }}</ion-col>
+        <ion-col class="ion-text-end">
+          {{ maxDescricao }}
+          <p>{{ max }} pontos</p>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title text-center>
+        Resgate
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of recompensasGanhas; let index = index">
+          <ion-label>{{ item.nome }} - {{ item.qtdPontos }} pontos</ion-label>
+          <ion-button slot="end" (click)="confirmarResgate(index)" >Resgatar</ion-button>
+        </ion-item>
+
+        <ion-item *ngIf="recompensasGanhas.length === 0">
+          <ion-label>Infelizmente você não tem nada para resgatar! 😐</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="resgatados.length !== 0">
+      <ion-card-header>
+        <ion-card-title text-center>
+          Itens Resgatados
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let item of resgatados; let index = index">
+            <ion-label>{{ item.nome }}
+              <p class="text-hours">
+                Resgatado em {{ calculaTempoResgate(index) }}
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title text-center>
+        Meu Histórico
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-list>
+            <ion-item *ngFor="let item of notificacoes; let index = index">
+              <ion-label>
+                {{ item.centroAula.descricao }} - Sala {{ item.sala }} 
+                <p class="text-hours">
+                  {{ calculaTempoEmAberto(index) }}
+                </p>
+              </ion-label>
+              <ion-chip slot="end" [color]="getColor(index)">
+                <ion-label>{{ _StatusNotificacao[item.status] }}</ion-label>
+              </ion-chip>
+            </ion-item>
+          </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="presentModal()" >
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>

@@ -6,6 +6,7 @@ import { Usuario } from '../models/usuario';
 import { CentroAula } from '../models/centro-aula';
 import { Notificacao, StatusNotificacao } from '../models/notificacao';
 import { Recompensa } from '../models/recompens';
+import { Resgatado } from '../models/resgatado';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,17 @@ export class MockupService {
   private centroAulas: CentroAula[];
   private notificacoes: Notificacao[];
   private recompensas: Recompensa[];
+  private resgatados: Resgatado[] = [];
 
   public emitterNotificacoesAbertas: EventEmitter<Notificacao[]> = new EventEmitter();
+  public emitterResgatados: EventEmitter<Recompensa[]> = new EventEmitter();
 
   constructor() {
     this.initCentroAulas();
     this.initNoticacoes();
     this.initRecompensas();
 
-    this.usuario.qtdPontos = 20;
+    this.usuario.qtdPontos = 40;
   }
 
 
@@ -54,9 +57,35 @@ export class MockupService {
     const filter: Notificacao[] = this.notificacoes
       .filter(v => v.status === StatusNotificacao.Aguardando && v.relator.id === this.usuarioLogado.id);
 
-    filter.sort((a, b) => dayjs(a.dataCriacao).isBefore(b.dataCriacao) ? -1 : 1);
-
     return filter;
+  }
+
+  public getAllNotificacoesDoUsuario(): Notificacao[] {
+    return this.notificacoes;
+  }
+
+  public getAllRecompensas(): Recompensa[] {
+    return this.recompensas.sort((a, b) => a.qtdPontos - b.qtdPontos);
+  }
+
+  public resgataRecompensa(resgatado: Resgatado) {
+    this.usuarioLogado.qtdPontos -= resgatado.qtdPontos;
+    resgatado.dataResgate = new Date();
+
+    this.resgatados.push(resgatado);
+    this.emitterResgatados.emit(this.resgatados);
+  }
+
+  public getResgatados() {
+    return this.resgatados;
+  }
+
+  public aprovaNotificacao(index: number) {
+    this.notificacoes[index].status = StatusNotificacao.Aceita;
+  }
+
+  public reprovaNotificacao(index: number) {
+    this.notificacoes[index].status = StatusNotificacao.Recusada;
   }
 
   insertNotificacao(sala: string, centroAula: CentroAula) {
@@ -64,7 +93,12 @@ export class MockupService {
     notifcacao.id = this.getAllNotificacoes.length;
 
     this.notificacoes.push(notifcacao);
+    this.ordenaNotificacoes();
     this.emitterNotificacoesAbertas.emit(this.getNotificacoesEmAguardoDoUsuario());
+  }
+
+  private ordenaNotificacoes() {
+    this.notificacoes = this.notificacoes.sort((a, b) => dayjs(b.dataCriacao).diff(a.dataCriacao, 'second'));
   }
 
   private initCentroAulas() {
@@ -77,21 +111,27 @@ export class MockupService {
 
   private initNoticacoes() {
     this.notificacoes = [];
-    this.getOneCentroAulas(2);
-    this.notificacoes.push(new Notificacao('101', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 11:00')));
-    this.notificacoes.push(new Notificacao('101', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 11:00')));
-    this.notificacoes.push(new Notificacao('201', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 11:20')));
-    this.notificacoes.push(new Notificacao('303', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 11:10')));
+    // this.notificacoes.push(new Notificacao('101', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 11:00')));
+    // this.notificacoes.push(new Notificacao('101', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 11:00')));
+    // this.notificacoes.push(new Notificacao('201', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 11:20')));
+    // this.notificacoes.push(new Notificacao('303', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 11:10')));
     this.notificacoes.push(new Notificacao('303', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 00:45')));
+    this.notificacoes.push(new Notificacao('303', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 00:55')));
+    this.notificacoes.push(new Notificacao('303', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 01:45')));
+    this.notificacoes.push(new Notificacao('303', this.usuarioLogado, this.getOneCentroAulas(4), new Date('2019-06-30 02:45')));
 
+    this.aprovaNotificacao(1);
+    this.reprovaNotificacao(3);
 
+    this.ordenaNotificacoes();
     this.emitterNotificacoesAbertas.emit(this.getNotificacoesEmAguardoDoUsuario());
   }
 
   private initRecompensas() {
     this.recompensas = [];
     this.recompensas.push(new Recompensa(1, 'Tirante Atlética X', 10));
-    this.recompensas.push(new Recompensa(1, 'Caneta Atlética X', 20));
-    this.recompensas.push(new Recompensa(1, 'Ingresso Chopada', 100));
+    this.recompensas.push(new Recompensa(2, 'Caneta Atlética X', 20));
+    this.recompensas.push(new Recompensa(3, 'Chaveiro', 5));
+    this.recompensas.push(new Recompensa(4, 'Ingresso Chopada', 100));
   }
 }
