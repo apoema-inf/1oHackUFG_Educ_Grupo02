@@ -1,0 +1,32 @@
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title text-center>Crie sua notificação</ion-card-title>
+      <ion-card-subtitle>O meio ambiente agradece sua contribuição 😄🌎</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="ion-margin-top">
+      <form [formGroup]="form">
+        <h2><strong>Você está em: </strong> {{ centroAula.descricao }}</h2>
+        <br>
+        
+        <ion-item>
+          <ion-label position="floating">Sala de Aula</ion-label>
+          <ion-input formControlName="sala" inputmode="numeric" type="number" required="true" autofocus="true"></ion-input>
+        </ion-item>
+        
+        <br>
+        <ion-button color="danger" class="ion-margin-vertical ion-float-left" (click)="onCloseModal()">
+          Fechar
+          <ion-icon slot="end" name="close"></ion-icon>
+        </ion-button>
+        <ion-button class="ion-margin-vertical ion-float-right" (click)="onCreateNotificacao()">
+          Criar
+          <ion-icon slot="end" name="add"></ion-icon>
+        </ion-button>
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
+  <ion-toolbar color="primary">
+    <ion-title text-center>
       Monitora UFG
     </ion-title>
   </ion-toolbar>
@@ -10,34 +10,52 @@
     <ion-card class="welcome-card">
       <ion-img src="/assets/shapes.svg"></ion-img>
       <ion-card-header>
-        <ion-card-title>Você já acumulou <strong>20 pontos</strong></ion-card-title>
-        <ion-card-subtitle>Você ajudou a UFG economizar R$ 100 em gastos</ion-card-subtitle>
+        <ion-card-title>Você já acumulou <strong>{{ usuario.qtdPontos }} pontos</strong></ion-card-title>
+        <ion-card-subtitle>
+          Você ajudou a UFG economizar R$ 100 em gastos
+        </ion-card-subtitle>
       </ion-card-header>
       <!-- <ion-card-content>
         <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
       </ion-card-content> -->
     </ion-card>
 
-    <ion-card>
-      <ion-header>
+    <!-- <ion-card>
+      <ion-card-header>
         <ion-card-title>Crie uma nova notificação</ion-card-title>
-      </ion-header>
-      <ion-card-subtitle>Encontrou ar-condicionado ligado sem necessida? 😱</ion-card-subtitle>
-    </ion-card>
+        <ion-card-subtitle>Encontrou ar-condicionado ligado sem necessida? 😱</ion-card-subtitle>
+        <ion-card-subtitle>Vamos ajudar? 😄</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-fab vertical="center" horizontal="center" slot="fixed">
+          <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-card-content>
+    </ion-card> -->
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Notificações Pendentes</ion-card-title>
+        <ion-card-title>Notificações em Análise</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item>
+          <ion-item *ngFor="let item of notificacoesPendentes; let index = index">
             <ion-label>
-              CA B - Sala 301
+              {{ item.centroAula.descricao }} - Sala {{ item.sala }} 
+              <p class="text-hours">
+                {{ calculaTempoEmAberto(index) }}
+              </p>
             </ion-label>
           </ion-item>
         </ion-list>
       </ion-card-content>
     </ion-card>
 
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="presentModal()" >
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>
