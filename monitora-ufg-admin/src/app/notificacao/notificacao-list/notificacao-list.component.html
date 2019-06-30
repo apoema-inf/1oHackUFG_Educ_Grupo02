@@ -1,0 +1,32 @@
+<div class="container" style="background: #fafafa">
+  <div class="row">
+    <div class="col-6 mt-2 mb-2">
+
+      <div class="row">
+        <div class="col-12">
+
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Lista de Notificações Abertas</mat-card-title>
+              <mat-card-subtitle>Você esta no {{ centroAula.descricao }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-action-list>
+                <button *ngFor="let item of notificacoes; let index = index" (click)="openForm(index)" mat-list-item>
+                  Sala - {{ item.sala }} - {{ statusNotificacao[item.status] }}
+                </button>
+              </mat-action-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-12 mt-2">
+
+          <app-notificacao-historico></app-notificacao-historico>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

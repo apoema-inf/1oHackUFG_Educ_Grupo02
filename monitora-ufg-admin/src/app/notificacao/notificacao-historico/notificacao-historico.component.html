@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Histórico de Solicitações Resolvidas</mat-card-title>
+    <mat-card-subtitle>Você esta no {{ centroAula.descricao }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-action-list>
+      <button *ngFor="let item of notificacoes; let index = index" mat-list-item>
+        Sala - {{ item.sala }} - {{ statusNotificacao[item.status] }}
+      </button>
+    </mat-action-list>
+  </mat-card-content>
+</mat-card>
