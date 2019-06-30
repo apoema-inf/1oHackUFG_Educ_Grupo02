@@ -1,0 +1,19 @@
+
+.tread-01 {
+  color: wheat;
+  background-color: green;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 60px
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.fontecoprint {
+  font-family: "Times New Roman", Times, serif;
+  
+
+}
