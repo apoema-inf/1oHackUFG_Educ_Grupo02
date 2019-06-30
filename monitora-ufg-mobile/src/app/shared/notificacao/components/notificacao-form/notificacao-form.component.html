@@ -2,12 +2,16 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title text-center>Crie sua notificação</ion-card-title>
-      <ion-card-subtitle>O meio ambiente agradece sua contribuição 😄🌎</ion-card-subtitle>
+      <ion-card-title text-center>Crie uma solicitação</ion-card-title>
+      <ion-card-subtitle>
+        Vou criar uma solicitação para desligamento do ar condicionado da sala abaixo
+        <br>
+        O meio ambiente agradece essa contribuição 😄🌎
+      </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content class="ion-margin-top">
       <form [formGroup]="form">
-        <h2><strong>Você está em: </strong> {{ centroAula.descricao }}</h2>
+        <h2><strong>Estou no: </strong> {{ centroAula.descricao }}</h2>
         <br>
         
         <ion-item>

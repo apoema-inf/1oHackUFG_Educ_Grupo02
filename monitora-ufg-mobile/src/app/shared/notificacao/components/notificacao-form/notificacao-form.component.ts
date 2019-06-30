@@ -41,7 +41,7 @@ export class NotificacaoFormComponent implements OnInit {
   async presentAlert() {
     const alert = await this.alertController.create({
       // header: 'Ei',
-      message: 'Ei, Você apagou as luzes? 🤔',
+      message: 'Estamos avisando que o ar condiciondo está ligado, mas você apagou as luzes? 🤔',
       buttons: [{
         text: 'Apaguei 👍',
         handler: () => {
