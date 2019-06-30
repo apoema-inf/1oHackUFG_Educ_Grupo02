@@ -7,7 +7,7 @@
       <mat-card-content>
         <div class="row">
           <div class="col-12">
-            <label>O ar realmente estava ligado?</label>
+            <label>O ar condicionado da sala {{ notificao.sala }} do {{ notificao.centroAula.descricao }} realmente estava ligado?</label>
             <br>
             <br>
             <mat-button-toggle-group name="avaliacao" class="mt-2">
@@ -18,7 +18,7 @@
         </div>
       </mat-card-content>
       <mat-card-actions align="end">
-          <button color="primary" mat-button (click)="onClickRegistrar()" >Registrar Avaliação</button>
+          <button color="primary" mat-button (click)="onClickRegistrar()">Registrar Avaliação</button>
       </mat-card-actions>
     </mat-card>
   </div>
