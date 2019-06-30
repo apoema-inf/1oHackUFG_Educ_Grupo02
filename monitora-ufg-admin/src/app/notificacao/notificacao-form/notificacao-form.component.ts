@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StatusNotificacao } from '../../core/models/notificacao';
+import { StatusNotificacao, Notificacao } from '../../core/models/notificacao';
 import { MockupService } from '../../core/services/mockup.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ export class NotificacaoFormComponent implements OnInit, OnDestroy {
   private index;
 
   private inscricao: Subscription;
+  public notificao: Notificacao;
 
   constructor(
     private service: MockupService,
@@ -23,7 +24,10 @@ export class NotificacaoFormComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.inscricao = this.route.params.subscribe(params => this.index = params.index);
+    this.inscricao = this.route.params.subscribe(params => {
+      this.index = params.index;
+      this.notificao = this.service.getAllNotificacoes[this.index];
+    });
   }
 
   onClickSim() {

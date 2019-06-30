@@ -69,6 +69,11 @@ export class MockupService {
     return filter;
   }
 
+  public getAllNotificacoesPendentes(): Notificacao[] {
+    const filter = this.notificacoes.filter(v => v.status === StatusNotificacao.Aguardando);
+    return filter;
+  }
+
   public getAllNotificacoesResolvidasDeLocal(centroAula: CentroAula): Notificacao[] {
     const filter = this.notificacoes.filter(v => v.centroAula.id === centroAula.id && v.status !== StatusNotificacao.Aguardando);
     return filter;
@@ -114,7 +119,7 @@ export class MockupService {
   }
 
   private filtraNotificacoesSemelhantes(notificacao: Notificacao): Notificacao[] {
-    return this.notificacoes.filter((v) => v.sala === notificacao.sala && v.centroAula.id === notificacao.centroAula.id);
+    return this.getAllNotificacoesPendentes().filter((v) => v.sala === notificacao.sala && v.centroAula.id === notificacao.centroAula.id);
 
   }
 
