@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+        "gh-pages": "ng build --base-href 'https://apoema-inf.github.io/1oHackUFG_Educ_Grupo02/monitora-ufg-mobile/' --prod && npx ngh --dir=www/"
   },
   "private": true,
   "dependencies": {
